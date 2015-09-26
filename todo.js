@@ -30,7 +30,9 @@ if (Meteor.isClient) {
       // Insert a task into the collection
       Tasks.insert({
         text: text,
-        createdAt: new Date() // current time
+        createdAt: new Date(), // current time
+        owner: Meteor.userId(), // id for logged in user
+        username: Meteor.user().username // username of logged in user
       });
 
       // clear form
@@ -51,5 +53,9 @@ if (Meteor.isClient) {
     "click .delete": function(){
       Tasks.remove(this._id);
     }
+  });
+
+  Account.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
   });
 }
